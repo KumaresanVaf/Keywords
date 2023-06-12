@@ -173,7 +173,6 @@
             }
             finally
             {
-                throw new Exception();
                 Console.WriteLine("Finally block!");
             }
 
