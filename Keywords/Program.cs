@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Keywords
+﻿namespace Keywords
 {
     internal interface IExample
     {
         void DoSomething();
     }
 
-    sealed class ExampleClass : IExample
+    internal sealed class ExampleClass : IExample
     {
         public void DoSomething()
         {
@@ -48,8 +45,19 @@ namespace Keywords
         public string StudentName { get; set; }
     }
 
-    class Program
+    public class Program
     {
+        private enum WeekDays
+        {
+            Monday,
+            Tuesday,
+            Wednesday,
+            Thursday,
+            Friday,
+            Saturday,
+            Sunday
+        }
+
         public static void Change(AbsChild std3, int std1, ref int refId, out int outId)
         {
             std3.StudentName = "Ajith";
@@ -58,19 +66,26 @@ namespace Keywords
             outId = 500;
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // Interface
             IExample example = new ExampleClass();
             example.DoSomething();
 
+            //Abstract
             AbsChild absChild = new AbsChild();
             absChild.Add(10, 5);
             absChild.Sub(10, 5);
             absChild.Mul(10, 5);
             absChild.Div(10, 2);
 
+            Console.WriteLine("\nEnnum");
+            Console.WriteLine(WeekDays.Friday);
+            int myNum = (int)WeekDays.Wednesday;
+            Console.WriteLine("No of WednesDay: " + myNum);
+
             // Ref and out
+            Console.WriteLine("\nRef and out");
             int std2 = 200;
             absChild.StudentName = "Vijay";
             int refId = 400;
@@ -79,8 +94,8 @@ namespace Keywords
             Change(absChild, std2, ref refId, out outId);
             Console.WriteLine(absChild.StudentName);
             Console.WriteLine(std2);
-            Console.WriteLine("Reference: "+refId);
-            Console.WriteLine("Out: "+outId);
+            Console.WriteLine("Reference: " + refId);
+            Console.WriteLine("Out: " + outId);
 
             // Break and continue
             Console.WriteLine("\nBreak:");
@@ -111,14 +126,17 @@ namespace Keywords
                 case "C":
                     Console.WriteLine("It's a Programming Language");
                     break;
+
                 case "MSSQL":
                 case "MySQL":
                     Console.WriteLine("It's a Database");
                     break;
+
                 case "MVC":
                 case "WEB API":
                     Console.WriteLine("It's a Framework");
                     break;
+
                 default:
                     Console.WriteLine("Invalid Input");
                     break;
@@ -155,6 +173,7 @@ namespace Keywords
             }
             finally
             {
+                throw new Exception();
                 Console.WriteLine("Finally block!");
             }
 
@@ -300,6 +319,42 @@ namespace Keywords
                 Console.WriteLine("Unchecked Integer: " + (val + 2));
             }
 
+            //TypeOf
+            Console.WriteLine("\nTypeOf");
+            object[] values = { (int)100, (long)17111 };
+            foreach (var value in values)
+            {
+                Type tp = value.GetType();
+
+                if (tp.Equals(typeof(int)))
+                {
+                    Console.WriteLine("{0} It is a Integer.", value);
+                }
+                else
+                {
+                    Console.WriteLine("{0} Not a Integer.", value);
+                }
+            }
+            //True And False
+            int index = 1;
+            while (true)
+            {
+                Console.WriteLine("Enter Name:");
+                string name = Console.ReadLine();
+                if (index == 5)
+                {
+                    Console.WriteLine("You Reached 5 Attempt");
+                    break;
+                }
+                index++;
+                if (name == "ram")
+                {
+                    break;
+                }
+            }
+
+
+         
         }
     }
 }
