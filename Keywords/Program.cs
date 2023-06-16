@@ -45,6 +45,18 @@
         public string StudentName { get; set; }
     }
 
+    //delegates
+    public class DataProcessor
+    {
+        public delegate void CallbackDelegate(string data);
+
+        public void ProcessData(string input, CallbackDelegate callback)
+        {
+            string processedData = input.ToUpper();
+            callback(processedData);
+        }
+    }
+
     public class Program
     {
         private enum WeekDays
@@ -58,6 +70,12 @@
             Sunday
         }
 
+        //Delegates Method
+        public static void PrintData(string data)
+        {
+            Console.WriteLine("Processed data Using Delegates: " + data);
+        }
+
         public static void Change(AbsChild std3, int std1, ref int refId, out int outId)
         {
             std3.StudentName = "Ajith";
@@ -68,6 +86,11 @@
 
         private static void Main(string[] args)
         {
+            //Delegate
+            var dataProcessor = new DataProcessor();
+            DataProcessor.CallbackDelegate callbackMethod = PrintData;
+            dataProcessor.ProcessData("hello, world!", callbackMethod);
+
             // Interface
             IExample example = new ExampleClass();
             example.DoSomething();
@@ -144,16 +167,20 @@
 
             // Try, catch, and finally
             Console.WriteLine("\ntry, catch, and finally");
+            int dividend = 10;
+            int divisor = 0;
             try
             {
-                int dividend = 10;
-                int divisor = 0;
-                int result = dividend + divisor;
+                int result = dividend / divisor;
                 Console.WriteLine(result);
             }
             catch (DivideByZeroException ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine(dividend + divisor);
             }
 
             try
@@ -170,10 +197,6 @@
             catch (FormatException)
             {
                 Console.WriteLine("Error: Invalid input. Please enter valid numbers.");
-            }
-            finally
-            {
-                Console.WriteLine("Finally block!");
             }
 
             // For, do-while, while, foreach
@@ -351,9 +374,6 @@
                     break;
                 }
             }
-
-
-         
         }
     }
 }
